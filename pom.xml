@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ch.jalu</groupId>
+    <artifactId>kt-configme-test</artifactId>
+    <version>${version.configme}</version>
+
+    <name>Kotlin ConfigMe integration tests</name>
+    <description>Various tests for ConfigMe with Kotlin and a newer Java version</description>
+    <inceptionYear>2016</inceptionYear>
+    <url>https://github.com/AuthMe/ConfigMe</url>
+
+    <organization>
+        <name>The AuthMe Team</name>
+        <url>https://github.com/AuthMe</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/ljacqu/configme-playground.git</connection>
+        <developerConnection>scm:git:git@github.com:ljacqu/configme-playground.git</developerConnection>
+        <url>https://github.com/AuthMe/ConfigMe/issues</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/AuthMe/ConfigMe/issues</url>
+    </issueManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.jdkVersion>17</project.jdkVersion>
+        <version.kotlin>1.9.0</version.kotlin>
+
+        <version.configme>2.0.0-SNAPSHOT</version.configme>
+        <version.junit>5.10.1</version.junit>
+        <version.mockito>5.7.0</version.mockito>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>AuthMe team</name>
+            <email>.</email>
+            <organization>AuthMe</organization>
+            <organizationUrl>https://github.com/AuthMe</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <defaultGoal>clean install</defaultGoal>
+        <finalName>${project.name}-${project.version}</finalName>
+
+        <plugins>
+            <!-- Maven Java Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${project.jdkVersion}</source>
+                    <target>${project.jdkVersion}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <!-- Force the right file encoding during unit testing -->
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding} @{argLine}</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- Coverage report generator -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${version.kotlin}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>ch.jalu</groupId>
+            <artifactId>configme</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${version.kotlin}</version>
+        </dependency>
+
+        <!-- Unit testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+            <version>${version.junit}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+            <version>${version.junit}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>java-hamcrest</artifactId>
+            <scope>test</scope>
+            <version>2.0.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+            <version>${version.mockito}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${version.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
