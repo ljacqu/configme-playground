@@ -1,3 +1,5 @@
 package kotdataclasstest
 
-data class WeatherData(val temp: Double, val location: String)
+import ch.jalu.configme.Comment
+
+data class WeatherData(@field:Comment("Current temperature") var temp: Double, val location: String)
