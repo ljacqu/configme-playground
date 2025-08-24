@@ -121,6 +121,11 @@
             <artifactId>configme</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ch.jalu</groupId>
+            <artifactId>typeresolver</artifactId>
+            <version>0.2.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
